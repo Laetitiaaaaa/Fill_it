@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.co>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 14:23:17 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/16 19:32:34 by jchardin         ###   ########.fr       */
+/*   Updated: 2018/12/20 19:18:50 by llejeune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <stdio.h>
 # include <fcntl.h>
-# include "./gnl/jchardin/get_next_line.h"
-# include "./libft/libft.h"
+# include "../Get_Next_Line/get_next_line.h"
+# include "libft.h"
 
 typedef struct		s_point
 {
@@ -27,6 +27,7 @@ typedef struct		s_point
 typedef struct		s_piece
 {
 	t_point			*point;
+	t_point			*original;
 	t_point			move;
 	struct s_piece	*next;
 }					t_piece;
@@ -50,7 +51,15 @@ int					ft_display_pieces(t_piece *list_piece);
 int					ft_check_for_contact(t_piece *lst);
 t_piece				*ft_display_coordonee(t_piece *elem);
 t_piece				*ft_translate_piece_origin(t_piece **list_piece);
-t_piece				*ft_x_plus_one(t_piece **list_piece, int n);
-int				ft_try_to_put_the_pieces(int size_map, t_piece **list_piece, int n);
+int					ft_ymax(t_piece *piece);
+int					ft_xmax(t_piece *piece);
+void				ft_move_x(t_piece **piece);
+void				ft_move_y(t_piece **piece);
+int					ft_pose_possible(t_piece *piece, char **map);
+void				ft_put_piece(t_piece *piece, char **map);
+void				ft_remove_piece(t_piece *piece, char **map);
+char				**ft_map(int size_map);
+void				ft_display(char **map);
+int					ft_place(t_piece *piece, char **map, int size_map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 11:38:57 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/16 17:49:47 by jchardin         ###   ########.fr       */
+/*   Updated: 2018/12/20 19:01:54 by llejeune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_piece			*ft_lst_new_piece(t_piece *new_node)
 {
 	new_node = (t_piece*)malloc(sizeof(t_piece));
 	new_node->point = (t_point*)malloc(sizeof(t_point) * 4);
+	new_node->original = (t_point*)malloc(sizeof(t_point) * 4);
 	new_node->move.x = 0;
 	new_node->move.y = 0;
 	new_node->next = NULL;
@@ -24,16 +25,19 @@ t_piece			*ft_lst_new_piece(t_piece *new_node)
 
 void			ft_lst_add(t_piece **lst, t_piece *new_node)
 {
-	if (*lst != NULL && new_node != NULL)
+	t_piece	*keep;
+
+	keep = *lst;
+	if (keep != NULL && new_node != NULL)
 	{
-		new_node->next = *lst;
-		*lst = new_node;
+		while ((keep)->next != NULL)
+			(keep) = (keep)->next;
+		(keep)->next = new_node;
 	}
 	if (*lst == NULL)
 	{
 		*lst = new_node;
 	}
-	return ;
 }
 
 void			ft_check_for_contact_decoupe(t_piece *lst,

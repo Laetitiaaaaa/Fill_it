@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.co>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 14:00:01 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/16 16:20:39 by jchardin         ###   ########.fr       */
+/*   Updated: 2018/12/20 19:02:34 by llejeune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,7 @@ int				ft_test_the_map(t_piece **list_piece, char *filename)
 	return (1);
 }
 
-void			ft_coordonate_piece_decoupe(t_compteur *count,
-t_piece **new_node, char *line, t_piece **list_piece)
+void			ft_coordonate_piece_decoupe(t_compteur *count, t_piece **new_node, char *line, t_piece **list_piece)
 {
 	if (count->i == 0)
 		*new_node = ft_lst_new_piece(*new_node);
