@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 16:14:21 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/21 16:47:19 by jchardin         ###   ########.fr       */
+/*   Updated: 2018/12/21 18:44:30 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int					ft_open_map(int *fd, char *filename);
 void				ft_check_for_contact_decoupe(t_piece *lst,
 int *connexions, int *i, int *k);
 int					ft_check_for_contact(t_piece *lst);
-void				ft_coordonate_piece_decoupe(t_compteur *count,
+int					ft_coordonate_piece_decoupe(t_compteur *count,
 t_piece **new_node, char *line, t_piece **list_piece);
 int					ft_coordonate_piece(int fd, t_piece **list_piece);
 int					ft_test_1(int fd);

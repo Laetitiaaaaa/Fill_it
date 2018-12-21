@@ -6,18 +6,20 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 16:02:05 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/21 17:30:04 by jchardin         ###   ########.fr       */
+/*   Updated: 2018/12/21 18:49:32 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void			ft_coordonate_piece_decoupe(t_compteur *count,
+int				ft_coordonate_piece_decoupe(t_compteur *count,
 t_piece **new_node, char *line, t_piece **list_piece)
 {
 	count->i = count->i + 1;
 	if (count->i == 0)
 		*new_node = ft_lst_new_piece(*new_node);
+	if (((*new_node)->n) > 25)
+		return (0);
 	if (ft_strlen(line) > 0)
 	{
 		count->j = 0;
@@ -39,6 +41,7 @@ t_piece **new_node, char *line, t_piece **list_piece)
 	}
 	if (count->i == 4)
 		count->i = -1;
+	return (1);
 }
 
 int				ft_coordonate_piece(int fd, t_piece **list_piece)
@@ -52,7 +55,8 @@ int				ft_coordonate_piece(int fd, t_piece **list_piece)
 	count->k = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		ft_coordonate_piece_decoupe(count, &new_node, line, list_piece);
+		if ((ft_coordonate_piece_decoupe(count, &new_node, line, list_piece)) == 0)
+			return (0);
 	}
 	return (1);
 }

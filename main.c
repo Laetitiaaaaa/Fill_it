@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.co>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 12:19:22 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/21 16:40:20 by jchardin         ###   ########.fr       */
+/*   Updated: 2018/12/21 18:23:03 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		main(int argc, char **argv)
 	map = NULL;
 	if (argc != 2)
 	{
-		ft_putstr("voici mon usage = il te faut 1 seul fichier l'ami\n");
+		ft_putstr("usage: ./fillit source_file\n");
 		return (0);
 	}
 	if (!(ft_test_the_map(&list_piece, argv[1])))
