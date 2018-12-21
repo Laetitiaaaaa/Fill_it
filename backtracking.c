@@ -6,7 +6,7 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 10:22:13 by llejeune          #+#    #+#             */
-/*   Updated: 2018/12/20 19:18:46 by llejeune         ###   ########.fr       */
+/*   Updated: 2018/12/21 11:22:17 by llejeune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void		ft_move_y(t_piece **piece)
 	i = 0;
 	while (i < 4)
 	{
+		(*piece)->point[i].x = (*piece)->original[i].x;
 		(*piece)->point[i].y = (*piece)->point[i].y + 1;
 		i++;
 	}
@@ -75,7 +76,7 @@ int		ft_pose_possible(t_piece *piece, char **map)
 	i = 0;
 	while (i < 4)
 	{
-		if (map[piece->point[i].y][piece->point[i].x] == '#')
+		if (map[piece->point[i].y][piece->point[i].x] != '.')
 			return (-1);
 		i++;
 	}
@@ -89,7 +90,7 @@ void	ft_put_piece(t_piece *piece, char **map)
 	i = 0;
 	while (i < 4)
 	{
-		map[piece->point[i].y][piece->point[i].x] = '#';
+		map[piece->point[i].y][piece->point[i].x] = 'A' + piece->n;
 		i++;
 	}
 }
@@ -112,23 +113,25 @@ int		ft_place(t_piece *piece, char **map, int size_map)
 	int	y_max;
 	int	x_max;
 
+	if (piece == NULL)
+		return (0);
 	y_max = ft_ymax(piece);
 	while (y_max <= size_map)
 	{
 		x_max = ft_xmax(piece);
 		while (x_max <= size_map)
 		{
+			printf("%d %d\n", x_max, y_max);
 			if (ft_pose_possible(piece, map) == 1)
 			{
-				if ((piece)->next == NULL)
+				printf("on met la piece\n");
+				ft_put_piece(piece, map);
+				ft_display(map);
+				ft_putchar('\n');
+				if (ft_place(piece->next, map, size_map) == 0)
 					return (0);
-				else
-				{
-					ft_put_piece(piece, map);
-					if (ft_place(piece->next, map, size_map) == 0)
-						return (0);
-					ft_remove_piece(piece, map);
-				}
+				printf("on retire la piece\n");
+				ft_remove_piece(piece, map);
 			}
 			ft_move_x(&piece);
 			x_max = ft_xmax(piece);
@@ -136,6 +139,10 @@ int		ft_place(t_piece *piece, char **map, int size_map)
 		ft_move_y(&piece);
 		y_max = ft_ymax(piece);
 	}
+	ft_reset_point(&piece);
+//	ft_display(map);
+	//ft_putchar('\n');
+	printf("plus de sol pour cette piece\n\n");
 	return (-1);
 }
 

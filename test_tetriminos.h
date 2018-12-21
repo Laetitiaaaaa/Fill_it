@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.co>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 14:23:17 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/20 19:18:50 by llejeune         ###   ########.fr       */
+/*   Updated: 2018/12/21 11:20:47 by llejeune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct		s_piece
 	t_point			*point;
 	t_point			*original;
 	t_point			move;
+	int				n;
 	struct s_piece	*next;
 }					t_piece;
 
@@ -61,5 +62,6 @@ void				ft_remove_piece(t_piece *piece, char **map);
 char				**ft_map(int size_map);
 void				ft_display(char **map);
 int					ft_place(t_piece *piece, char **map, int size_map);
+void				ft_reset_point(t_piece **list_piece);
 
 #endif

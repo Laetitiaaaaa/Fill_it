@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.co>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 12:19:22 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/20 19:11:32 by llejeune         ###   ########.fr       */
+/*   Updated: 2018/12/21 10:21:10 by llejeune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int		main(int argc, char **argv)
 	t_piece		*list_piece;
 	char		**map;
 
-	size_map = 3;
+	size_map = 1;
 	list_piece = NULL;
 	if (argc != 2)
 	{
@@ -116,7 +116,7 @@ int		main(int argc, char **argv)
 	printf("on place les pieces\n");
 	if (!(map = ft_map(size_map)))
 		return (0);
-	ft_display(map);
+//	ft_display(map);
 
 	// faire une copie malloquer de piece original;
 	ft_original(&list_piece);
