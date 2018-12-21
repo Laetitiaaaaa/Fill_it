@@ -6,14 +6,14 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 16:12:19 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/21 16:45:01 by jchardin         ###   ########.fr       */
+/*   Updated: 2018/12/21 19:22:42 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
 void			ft_translate_piece_decoupe(t_piece **list_piece,
-int *xmin, int *ymin)
+		int *xmin, int *ymin)
 {
 	int		j;
 
@@ -56,12 +56,17 @@ t_piece			*ft_lst_new_piece(t_piece *new_node)
 {
 	static int n = 0;
 
-	new_node = (t_piece*)malloc(sizeof(t_piece));
-	new_node->point = (t_point*)malloc(sizeof(t_point) * 4);
-	new_node->original = (t_point*)malloc(sizeof(t_point) * 4);
+	if (!(new_node = (t_piece*)malloc(sizeof(t_piece))))
+		return (0);
+	if (!(new_node->point = (t_point*)malloc(sizeof(t_point) * 4)))
+		return (0);
+	if (!(new_node->original = (t_point*)malloc(sizeof(t_point) * 4)))
+		return (0);
 	new_node->move.x = 0;
 	new_node->move.y = 0;
 	new_node->n = n;
+	if (new_node->n > 25)
+		return (0);
 	new_node->next = NULL;
 	n++;
 	return (new_node);

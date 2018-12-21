@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 16:03:25 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/21 16:06:51 by jchardin         ###   ########.fr       */
+/*   Updated: 2018/12/21 19:09:02 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 int				ft_open_map(int *fd, char *filename)
 {
 	if ((*fd = open(filename, O_RDONLY)) == -1)
-	{
-		ft_putstr("file descriptor failure");
 		return (0);
-	}
 	return (1);
 }
 
