@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.co>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 14:00:01 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/20 19:02:34 by llejeune         ###   ########.fr       */
+/*   Updated: 2018/12/21 14:25:37 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,14 @@ int				ft_test_the_map(t_piece **list_piece, char *filename)
 
 void			ft_coordonate_piece_decoupe(t_compteur *count, t_piece **new_node, char *line, t_piece **list_piece)
 {
+	count->i = count->i + 1;
+		printf("\nle i =%d, la line =%s\n", count->i, line);
 	if (count->i == 0)
+	{
 		*new_node = ft_lst_new_piece(*new_node);
+		printf("On creer la piece =%d\n", (*new_node)->n);
+		
+	}
 	if (ft_strlen(line) > 0)
 	{
 		count->j = 0;
@@ -109,11 +115,12 @@ void			ft_coordonate_piece_decoupe(t_compteur *count, t_piece **new_node, char *
 			}
 			count->j++;
 		}
-		count->i++;
 	}
-	if (count->k == 4)
+	if (count->i == 4)
 	{
+		count->i = -1;
 		count->k = 0;
+		printf("on AJOUT la piece =%d\n", (*new_node)->n);
 		ft_lst_add(list_piece, *new_node);
 	}
 }
@@ -124,12 +131,12 @@ int				ft_coordonate_piece(int fd, t_piece **list_piece)
 	t_compteur		*count;
 	t_piece			*new_node;
 
+
 	count = malloc(sizeof(t_compteur));
-	count->i = 0;
-	count->k = 0;
+	count->i = -1;
+		count->k = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		count->i = count->i % 4;
 		ft_coordonate_piece_decoupe(count, &new_node, line, list_piece);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 11:35:06 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/20 09:17:58 by llejeune         ###   ########.fr       */
+/*   Updated: 2018/12/21 13:14:29 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,11 @@ int *k, t_piece *list_piece)
 
 int				ft_display_pieces(t_piece *list_piece)
 {
-	int		i;
-	int		j;
 	int		k;
 	char	**piece;
 	int		size;
 
+	piece = NULL;
 	piece = ft_mallcage_de_display(piece, list_piece, &size);
 	printf("On affiche les pieces\n");
 	k = -1;
@@ -122,7 +121,6 @@ int *xmin, int *ymin)
 
 t_piece			*ft_translate_piece_origin(t_piece **list_piece)
 {
-	int			i;
 	int			xmin;
 	int			ymin;
 	t_piece		*lst_origin;

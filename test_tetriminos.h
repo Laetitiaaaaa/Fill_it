@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.co>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 14:23:17 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/21 11:20:47 by llejeune         ###   ########.fr       */
+/*   Updated: 2018/12/21 13:12:06 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <stdio.h>
 # include <fcntl.h>
-# include "../Get_Next_Line/get_next_line.h"
-# include "libft.h"
+# include "get_next_line.h"
+# include "libft/libft.h"
 
 typedef struct		s_point
 {

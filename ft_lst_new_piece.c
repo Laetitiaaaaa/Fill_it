@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 11:38:57 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/21 11:27:11 by llejeune         ###   ########.fr       */
+/*   Updated: 2018/12/21 14:28:43 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ void			ft_lst_add(t_piece **lst, t_piece *new_node)
 	if (keep != NULL && new_node != NULL)
 	{
 		while ((keep)->next != NULL)
+		{
 			(keep) = (keep)->next;
+		}
 		(keep)->next = new_node;
 	}
 	if (*lst == NULL)

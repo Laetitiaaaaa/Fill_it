@@ -3,101 +3,130 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jchardin <jerome.chardin@outlook.co>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/12 16:12:53 by llejeune          #+#    #+#             */
-/*   Updated: 2018/12/19 08:38:06 by llejeune         ###   ########.fr       */
+/*   Created: 2018/12/06 20:52:20 by jchardin          #+#    #+#             */
+/*   Updated: 2018/12/17 06:46:29 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Get_Next_Line/get_next_line.h"
+#include "get_next_line.h"
+#include <stdio.h>
 
-static int		sizeline(char *tmp)
+static int		ft_init(t_mystruct **mystruct)
 {
-	int	i;
-	int size;
-
-	i = 0;
-	size = 0;
-	while (tmp[i++] != '\n')
-		size++;
-	return (size);
-}
-
-static int		line_no_eof(char **tmp, char **line)
-{
-	char	*str;
-
-	if ((*tmp)[0] == '\n')
-		*line = ft_strnew(0);
-	else
-		*line = ft_strsub(*tmp, 0, sizeline(*tmp));
-	str = *tmp;
-	*tmp = ft_strdup(ft_strchr(str, '\n') + 1);
-	free(str);
+	if (!((*mystruct) = (t_mystruct*)ft_memalloc(sizeof(t_mystruct))))
+		return (-1);
+	(*mystruct)->tmp = NULL;
+	(*mystruct)->eof = 0;
+	(*mystruct)->find = 0;
+	(*mystruct)->ret_code = 1;
 	return (1);
 }
 
-static int		eof(char **tmp, char **line)
+static int		ft_send_the_line(char **line, t_mystruct *mystruct)
 {
-	char	*str;
+	char	*str2;
+	char	*swap;
 
-	if (ft_strlen(*tmp) == 0)
+	if (!(str2 = ft_strnew(ft_strchr(mystruct->tmp, '\n') - mystruct->tmp)))
+		return (-1);
+	*line = ft_strncpy(str2, mystruct->tmp, ft_strchr(mystruct->tmp, '\n') -
+			mystruct->tmp);
+	if (!(swap = ft_strdup(mystruct->tmp)))
+		return (-1);
+	free(mystruct->tmp);
+	if (!(mystruct->tmp = ft_strdup(ft_strchr(swap, '\n') + 1)))
+		return (mystruct->ret_code = -1);
+	free(swap);
+	mystruct->find = 1;
+	mystruct->ret_code = 1;
+	return (1);
+}
+
+static int		ft_end_of_file(char **line, t_mystruct *mystruct)
+{
+	if (ft_strchr(mystruct->tmp, '\n'))
 	{
-		*line = NULL;
-		free(*tmp);
-		*tmp = NULL;
-		return (0);
-	}
-	if (ft_strchr(*tmp, '\n') == NULL)
-	{
-		*line = ft_strdup(*tmp);
-		*tmp = ft_strnew(0);
+		if (!(ft_send_the_line(line, mystruct)))
+			return (-1);
 	}
 	else
 	{
-		*line = ft_strsub(*tmp, 0, sizeline(*tmp));
-		str = *tmp;
-		*tmp = ft_strdup(ft_strchr(str, '\n') + 1);
-		free(str);
+		if (ft_strlen(mystruct->tmp) > 0)
+		{
+			mystruct->ret_code = 1;
+			if (!(*line = ft_strdup(mystruct->tmp)))
+				return (mystruct->ret_code = -1);
+		}
+		else
+		{
+			mystruct->ret_code = 0;
+		}
+		if (mystruct->tmp)
+		{
+			free(mystruct->tmp);
+			mystruct->tmp = NULL;
+		}
+		mystruct->find = 1;
 	}
 	return (1);
 }
 
-static void		lecture(char **buf, char **tmp)
+static int		ft_in_the_file(t_mystruct *mystruct, const int fd, char **line)
 {
-	char	*str;
+	char	*tmp;
 
-	str = *tmp;
-	*tmp = ft_strjoin(str, *buf);
-	free(str);
+	if (mystruct->tmp && ft_strchr(mystruct->tmp, '\n') != NULL)
+	{
+		if (!(ft_send_the_line(line, mystruct)))
+			return (mystruct->ret_code = 0);
+	}
+	else
+	{
+		if ((mystruct->size = read(fd, mystruct->str, BUFF_SIZE)) == -1)
+			return (-1);
+		mystruct->str[mystruct->size] = '\0';
+		mystruct->eof = (mystruct->size < BUFF_SIZE) ? 1 : 0;
+		tmp = NULL;
+		if (mystruct->tmp != NULL)
+			if (!(tmp = ft_strdup(mystruct->tmp)))
+				return (-1);
+		free(mystruct->tmp);
+		mystruct->tmp = !tmp ? ft_strdup(mystruct->str) :
+			ft_strjoin(tmp, mystruct->str);
+		if (mystruct->tmp == NULL)
+			return (-1);
+		free(tmp);
+	}
+	return (1);
 }
 
 int				get_next_line(const int fd, char **line)
 {
-	int			ret;
-	int			res;
-	char		*buf;
-	static char	*tmp = NULL;
+	static t_mystruct	*mystruct = NULL;
 
-	if ((!(buf = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1))))
-			|| fd < 0 || BUFF_SIZE <= 0)
+	if (line == NULL)
 		return (-1);
-	ret = BUFF_SIZE;
-	if (tmp == NULL)
-		tmp = ft_strnew(0);
-	while (ft_strchr(tmp, '\n') == NULL && ret == BUFF_SIZE)
-	{
-		ret = read(fd, buf, BUFF_SIZE);
-		if (ret == -1)
+	*line = NULL;
+	if (fd < 0)
+		return (-1);
+	if (mystruct == NULL)
+		if (!(ft_init(&mystruct)))
 			return (-1);
-		buf[ret] = 0;
-		lecture(&buf, &tmp);
-	}
-	if (ft_strchr(tmp, '\n') != NULL && ret == BUFF_SIZE)
-		res = line_no_eof(&tmp, line);
-	if (ret < BUFF_SIZE)
-		res = eof(&tmp, line);
-	free(buf);
-	return (res);
+	if (!(mystruct->str = ft_strnew(BUFF_SIZE + 1)))
+		return (mystruct->ret_code = -1);
+	while (!mystruct->find && !mystruct->eof)
+		if (!(ft_in_the_file(mystruct, fd, line)))
+			return (-1);
+	if (mystruct->tmp == NULL)
+		return (mystruct->ret_code = 0);
+	if (!mystruct->find && mystruct->eof)
+		if (!(ft_end_of_file(line, mystruct)))
+			return (mystruct->ret_code = -1);
+	free(mystruct->str);
+	mystruct->find = 0;
+	mystruct->str = NULL;
+	mystruct->eof = 0;
+	return (mystruct->ret_code);
 }

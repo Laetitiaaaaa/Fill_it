@@ -6,7 +6,7 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 10:22:13 by llejeune          #+#    #+#             */
-/*   Updated: 2018/12/21 11:22:17 by llejeune         ###   ########.fr       */
+/*   Updated: 2018/12/21 13:52:36 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,16 +121,12 @@ int		ft_place(t_piece *piece, char **map, int size_map)
 		x_max = ft_xmax(piece);
 		while (x_max <= size_map)
 		{
-			printf("%d %d\n", x_max, y_max);
 			if (ft_pose_possible(piece, map) == 1)
 			{
-				printf("on met la piece\n");
 				ft_put_piece(piece, map);
-				ft_display(map);
-				ft_putchar('\n');
+				//ft_display(map);
 				if (ft_place(piece->next, map, size_map) == 0)
 					return (0);
-				printf("on retire la piece\n");
 				ft_remove_piece(piece, map);
 			}
 			ft_move_x(&piece);
@@ -140,9 +136,6 @@ int		ft_place(t_piece *piece, char **map, int size_map)
 		y_max = ft_ymax(piece);
 	}
 	ft_reset_point(&piece);
-//	ft_display(map);
-	//ft_putchar('\n');
-	printf("plus de sol pour cette piece\n\n");
 	return (-1);
 }
 

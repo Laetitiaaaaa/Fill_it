@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.co>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 12:19:22 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/21 10:21:10 by llejeune         ###   ########.fr       */
+/*   Updated: 2018/12/21 13:33:01 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,58 +109,30 @@ int		main(int argc, char **argv)
 		ft_putstr("error\n");
 		return (1);
 	}
-	ft_display_pieces(list_piece);
+//	ft_display_pieces(list_piece);
 	list_piece = ft_translate_piece_origin(&list_piece);
 	printf("translate done\n");
-	ft_display_pieces(list_piece);
+//	ft_display_pieces(list_piece);
 	printf("on place les pieces\n");
 	if (!(map = ft_map(size_map)))
 		return (0);
-//	ft_display(map);
+	//	ft_display(map);
 
 	// faire une copie malloquer de piece original;
+	
+
+printf("VIDAGE\n\n\n\n");
+
+
 	ft_original(&list_piece);
 	while (ft_place(list_piece, map, size_map) == -1)
 	{
 		size_map++;
+		free(map);
 		map = ft_map(size_map);
-		//list_piece = copie de l'original;
 		ft_reset_point(&list_piece);
 	}
 	ft_display(map);
-
-
-/*
-	//faire une copie de l'original
-	printf("On fait une copie de l'original\n");
-	ft_original(&list_piece);
-
-	//on move la piece y++
-	printf("On deplace la piece\n");
-	ft_move_y(&list_piece);
-
-	// on la pose
-	printf("On pose la piece\n");
-	ft_put_piece(list_piece, map);
-	//on affiche
-	printf("On affiche\n");
-	ft_display(map);
-
-	ft_remove_piece(list_piece, map);
-
-	//list_piece = copie de l'original
-	printf("copie de l'original\n");
-	ft_reset_point(&list_piece);
-
-	//on pose la piece
-	printf("On pose la piece\n");
-	ft_put_piece(list_piece, map);
-
-
-	//on affiche
-	printf("On affiche\n");
-	ft_display(map);
-
-*/
+	free(map);
 	return (0);
 }
