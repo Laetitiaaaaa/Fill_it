@@ -6,7 +6,7 @@
 #    By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/21 15:36:23 by jchardin          #+#    #+#              #
-#    Updated: 2018/12/21 16:41:51 by jchardin         ###   ########.fr        #
+#    Updated: 2018/12/21 17:38:26 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,11 @@ clean:
 fclean: clean
 	/bin/rm -rf $(NAME)
 
-
 re: fclean $(NAME)
+
+me: $(NAME)
+	./fillit test_map/sample.fillit
+
 
 
 .PHONY: all clean fclean re

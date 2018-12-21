@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 16:02:05 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/21 16:03:13 by jchardin         ###   ########.fr       */
+/*   Updated: 2018/12/21 17:30:04 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ t_piece **new_node, char *line, t_piece **list_piece)
 			count->j++;
 		}
 	}
-	if (count->i == 4)
+	if (count->i == 3)
 	{
-		count->i = -1;
 		count->k = 0;
 		ft_lst_add(list_piece, *new_node);
 	}
+	if (count->i == 4)
+		count->i = -1;
 }
 
 int				ft_coordonate_piece(int fd, t_piece **list_piece)
