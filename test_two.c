@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/21 16:02:05 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/22 11:40:04 by jchardin         ###   ########.fr       */
+/*   Created: 2018/12/22 15:10:27 by jchardin          #+#    #+#             */
+/*   Updated: 2018/12/22 15:26:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */ 
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 int				ft_coordonate_piece_decoupe(t_compteur *count,
@@ -86,10 +87,9 @@ int				ft_test_1(int fd)
 	return (1);
 }
 
-int				ft_test_2(int fd)
+int				ft_test_2(int fd, char *line)
 {
 	t_compteur		count;
-	char			*line;
 
 	count.j = 0;
 	while (get_next_line(fd, &line))

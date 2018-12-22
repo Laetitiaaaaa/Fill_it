@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 15:59:46 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/21 18:59:52 by jchardin         ###   ########.fr       */
+/*   Updated: 2018/12/22 15:27:16 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@ int				ft_test_line_length(int *fd, char *filename)
 
 int				ft_test_tetriminos_content(int *fd, char *filename)
 {
+	char	*line;
+
+	line = NULL;
 	if (!(ft_open_map(fd, filename)))
 		return (0);
-	if (!(ft_test_2(*fd)))
+	if (!(ft_test_2(*fd, line)))
 		return (0);
 	if (close(*fd) == -1)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 16:14:21 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/21 18:44:30 by jchardin         ###   ########.fr       */
+/*   Updated: 2018/12/22 15:25:53 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int					ft_coordonate_piece_decoupe(t_compteur *count,
 t_piece **new_node, char *line, t_piece **list_piece);
 int					ft_coordonate_piece(int fd, t_piece **list_piece);
 int					ft_test_1(int fd);
-int					ft_test_2(int fd);
+int					ft_test_2(int fd, char *line);
 int					ft_test_3(int fd);
 char				**ft_map(int size_map);
 void				ft_display(char **map);

@@ -6,17 +6,37 @@
 /*   By: jchardin <jerome.chardin@outlook.co>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 12:19:22 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/22 12:58:07 by jchardin         ###   ########.fr       */
+/*   Updated: 2018/12/22 15:07:02 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
+void	ft_free_map(char **map, int *size_map)
+{
+	int	i;
+
+	i = 0;
+	while (i <= *size_map)
+	{
+		free(map[i]);
+		map[i] = NULL;
+		i++;
+	}
+	free(map);
+	map = NULL;
+}
+
 int		ft_free_lst(t_piece **list_piece)
 {
-	(void) list_piece;
-
-
+	if (*list_piece != NULL)
+	{
+		free((*list_piece)->point);
+		free((*list_piece)->original);
+	}
+	if ((*list_piece)->next)
+		ft_free_lst(&(*list_piece)->next);
+	free(*list_piece);
 	return (1);
 }
 
@@ -43,40 +63,24 @@ int		main(int argc, char **argv)
 	if ((ft_backtracking(&size_map, map, &list_piece) == 0))
 		return (0);
 	if (!(ft_free_lst(&list_piece)))
-			return (0);
+		return (0);
 	return (0);
 }
 
 int		ft_backtracking(int *size_map, char **map, t_piece **list_piece)
 {
-	int i;
-
-	i = 0;
 	if (!(map = ft_map(*size_map)))
 		return (0);
 	ft_original(list_piece);
 	while (ft_place(*list_piece, map, *size_map) == -1)
 	{
+		ft_free_map(map, size_map);
 		*size_map = *size_map + 1;
-		while (map[i] != NULL)
-		{
-			free(map[i]);
-			i++;
-		}
-		free(map[i]);
-		free(map);
 		if (!(map = ft_map(*size_map)))
 			return (0);
 		ft_reset_point(list_piece);
 	}
 	ft_display(map);
-	i = 0;
-	while (map[i] != NULL)
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map[i]);
-	free(map);
+	ft_free_map(map, size_map);
 	return (1);
 }
