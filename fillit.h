@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 16:14:21 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/22 15:25:53 by jchardin         ###   ########.fr       */
+/*   Updated: 2018/12/22 16:19:58 by llejeune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ int					ft_pose_possible(t_piece *piece, char **map);
 void				ft_put_piece(t_piece *piece, char **map);
 void				ft_remove_piece(t_piece *piece, char **map);
 int					ft_place(t_piece *piece, char **map, int size_map);
+int					ft_free_lst(t_piece **list_piece);
 
 #endif
