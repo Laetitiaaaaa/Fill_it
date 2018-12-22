@@ -6,14 +6,13 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 16:02:05 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/21 19:25:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2018/12/22 11:40:04 by jchardin         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
-
+/* ************************************************************************** */ 
 #include "fillit.h"
 
 int				ft_coordonate_piece_decoupe(t_compteur *count,
-t_piece **new_node, char *line, t_piece **list_piece)
+		t_piece **new_node, char *line, t_piece **list_piece)
 {
 	count->i = count->i + 1;
 	if (count->i == 0)
@@ -55,9 +54,11 @@ int				ft_coordonate_piece(int fd, t_piece **list_piece)
 	while (get_next_line(fd, &line) > 0)
 	{
 		if ((ft_coordonate_piece_decoupe(count, &new_node,
-line, list_piece)) == 0)
+						line, list_piece)) == 0)
 			return (0);
+		free(line);
 	}
+	free(count);
 	return (1);
 }
 
@@ -78,35 +79,40 @@ int				ft_test_1(int fd)
 				return (0);
 			i = -1;
 		}
+		free(line);
 	}
+	if (i != 3)
+		return (0);
 	return (1);
 }
 
 int				ft_test_2(int fd)
 {
-	int		i;
-	int		j;
-	char	*line;
+	t_compteur		count;
+	char			*line;
 
-	j = 0;
+	count.j = 0;
 	while (get_next_line(fd, &line))
 	{
 		if (ft_strlen(line) != 0)
 		{
-			i = -1;
-			while (line[++i] != '\0')
+			count.i = -1;
+			while (line[++(count.i)] != '\0')
 			{
-				if (line[i] == '#')
-					j++;
+				if (line[count.i] == '#')
+					count.j++;
 			}
 		}
 		else
 		{
-			if (j != 4)
+			if (count.j != 4)
 				return (0);
-			j = 0;
+			count.j = 0;
 		}
+		free(line);
 	}
+	if (count.j != 4)
+		return (0);
 	return (1);
 }
 
@@ -124,6 +130,7 @@ int				ft_test_3(int fd)
 				return (0);
 			i++;
 		}
+		free(line);
 	}
 	return (1);
 }

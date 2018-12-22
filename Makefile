@@ -6,7 +6,7 @@
 #    By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/21 15:36:23 by jchardin          #+#    #+#              #
-#    Updated: 2018/12/21 20:31:02 by jchardin         ###   ########.fr        #
+#    Updated: 2018/12/22 11:38:55 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ all: $(NAME)
 $(NAME):
 	$(CC) $(CFLAG) $(SRC)
 	make -C ./libft
-	gcc *.o libft/libft.a -o $(NAME)
+	gcc -g  *.o libft/libft.a -o $(NAME)
 
 clean:
 	/bin/rm -rf *.o
