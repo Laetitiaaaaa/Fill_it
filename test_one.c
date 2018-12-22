@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 15:59:46 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/22 15:27:16 by jchardin         ###   ########.fr       */
+/*   Updated: 2018/12/22 16:21:11 by llejeune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ int				ft_check_for_valid_tetriminos(int *fd,
 	if ((ft_coordonate_piece(*fd, list_piece)) == 0)
 		return (0);
 	if (!(ft_check_for_contact(*list_piece)))
+	{
+		ft_free_lst(list_piece);
 		return (0);
+	}
 	if (close(*fd) == -1)
 		return (0);
 	return (1);

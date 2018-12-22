@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.co>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 12:19:22 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/22 15:42:41 by jchardin         ###   ########.fr       */
+/*   Updated: 2018/12/22 16:14:00 by llejeune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int		main(int argc, char **argv)
 	}
 	if (!(ft_test_the_map(&list_piece, argv[1])))
 	{
-		ft_free_lst(&list_piece);
 		ft_putstr("error\n");
 		return (1);
 	}
